@@ -1,0 +1,72 @@
+{
+  "name": "ROSTER — Music Management Platform",
+  "short_name": "ROSTER",
+  "description": "The all-in-one music management platform for Africa and the Global South.",
+  "start_url": "/dashboard",
+  "display": "standalone",
+  "background_color": "#080B14",
+  "theme_color": "#080B14",
+  "orientation": "portrait-primary",
+  "categories": ["business", "music", "education"],
+  "icons": [
+    {
+      "src": "/icons/icon-72.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-96.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-128.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-144.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "My Toolkit",
+      "short_name": "Toolkit",
+      "description": "Access your management toolkit",
+      "url": "/dashboard/library",
+      "icons": [{ "src": "/icons/icon-96.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Masterclasses",
+      "short_name": "Classes",
+      "description": "Watch video masterclasses",
+      "url": "/dashboard/masterclasses",
+      "icons": [{ "src": "/icons/icon-96.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Book an Expert",
+      "short_name": "Experts",
+      "description": "Book a session with an industry expert",
+      "url": "/dashboard/experts",
+      "icons": [{ "src": "/icons/icon-96.png", "sizes": "96x96" }]
+    }
+  ]
+}

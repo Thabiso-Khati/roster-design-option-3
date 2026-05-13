@@ -1,0 +1,48 @@
+version: 2
+updates:
+  # npm dependencies
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "Africa/Johannesburg"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "thabisokgabi"
+    labels:
+      - "dependencies"
+    ignore:
+      # Tailwind v4 is a breaking change — PostCSS plugin moved to @tailwindcss/postcss.
+      # Stay on v3 until we plan a proper migration.
+      - dependency-name: "tailwindcss"
+        versions: [">=4.0.0"]
+    groups:
+      # Bundle all Next.js / React ecosystem updates together
+      nextjs-ecosystem:
+        patterns:
+          - "next"
+          - "react"
+          - "react-dom"
+          - "@types/react*"
+      # Bundle all Supabase updates together
+      supabase:
+        patterns:
+          - "@supabase/*"
+      # Bundle Sentry updates together
+      sentry:
+        patterns:
+          - "@sentry/*"
+
+  # GitHub Actions updates
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "Africa/Johannesburg"
+    labels:
+      - "dependencies"
+      - "github-actions"

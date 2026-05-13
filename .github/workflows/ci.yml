@@ -1,0 +1,131 @@
+name: CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  # ── Secret scanning (runs first — cheapest gate) ───────────────────────────
+  secrets:
+    name: Secret scanning
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout (full history for gitleaks)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Gitleaks — detect hardcoded secrets
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # GITLEAKS_LICENSE is only required for private repos on the paid plan.
+          # For public repos or the free tier, omit this line.
+
+  # ── Main CI ────────────────────────────────────────────────────────────────
+  ci:
+    name: Type-check · Lint · Test
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    needs: secrets
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      # ── Type-check ────────────────────────────────────────
+      - name: TypeScript — tsc --noEmit
+        run: npx tsc --noEmit
+
+      # ── Lint ─────────────────────────────────────────────
+      - name: ESLint
+        run: npm run lint
+
+      # ── Tests ────────────────────────────────────────────
+      - name: Vitest — unit + integration
+        run: npm test
+        env:
+          # Provide stub values so env-dependent imports don't crash in CI.
+          # Real secrets are never stored here — tests mock Supabase/Paystack.
+          NEXT_PUBLIC_SUPABASE_URL: https://placeholder.supabase.co
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: placeholder-anon-key
+          SUPABASE_SERVICE_ROLE_KEY: placeholder-service-role-key
+          ESIGN_TOKEN_SECRET: ci-test-secret-32-chars-minimum!!
+          NEXT_PUBLIC_SENTRY_DSN: ""
+          NODE_ENV: test
+
+  # ── Lighthouse CI ──────────────────────────────────────────────────────────
+  # Enforces Core Web Vitals on every PR. Runs against a production build so
+  # the scores reflect real-world conditions (minified JS, no dev overlays).
+  # Thresholds: performance 75, accessibility 85, best-practices 85, SEO 80.
+  # Raise them gradually as the product matures.
+  lighthouse:
+    name: Lighthouse CI
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    needs: ci
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build Next.js app
+        run: npm run build
+        env:
+          # Stub values — Lighthouse only needs the app to build and start.
+          NEXT_PUBLIC_SUPABASE_URL: https://placeholder.supabase.co
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: placeholder-anon-key
+          SUPABASE_SERVICE_ROLE_KEY: placeholder-service-role-key
+          NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY: pk_test_placeholder
+          PAYSTACK_SECRET_KEY: sk_test_placeholder
+          ANTHROPIC_API_KEY: sk-ant-placeholder
+          ESIGN_TOKEN_SECRET: ci-lighthouse-secret-32-chars!!
+          NEXT_PUBLIC_SENTRY_DSN: ""
+          NEXT_PUBLIC_APP_URL: http://localhost:3001
+          NEXT_PUBLIC_APP_NAME: ROSTER
+          UPSTASH_REDIS_REST_URL: https://placeholder.upstash.io
+          UPSTASH_REDIS_REST_TOKEN: placeholder-token
+          NODE_ENV: production
+
+      - name: Install @lhci/cli
+        run: npm install -g @lhci/cli
+
+      - name: Start app in background
+        run: npm run start &
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: https://placeholder.supabase.co
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: placeholder-anon-key
+          SUPABASE_SERVICE_ROLE_KEY: placeholder-service-role-key
+          NEXT_PUBLIC_APP_URL: http://localhost:3001
+          NEXT_PUBLIC_APP_NAME: ROSTER
+          UPSTASH_REDIS_REST_URL: https://placeholder.upstash.io
+          UPSTASH_REDIS_REST_TOKEN: placeholder-token
+
+      - name: Wait for app to be ready
+        run: npx wait-on http://localhost:3001 --timeout 60000
+
+      - name: Run Lighthouse CI
+        run: lhci autorun
+        env:
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}

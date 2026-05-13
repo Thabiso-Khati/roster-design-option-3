@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80">
+  <!-- Navy blue background with rounded corners -->
+  <rect width="80" height="80" rx="14" fill="#1B3769"/>
+  <!-- Gold bottom strip (rounded bottom corners via clip) -->
+  <path d="M0 68 L80 68 L80 66 Q80 80 66 80 L14 80 Q0 80 0 66 Z" fill="#F5A000"/>
+
+  <!-- Person/figure icon in gold: circle head + wide shield/kite body -->
+  <circle cx="40" cy="20" r="9" fill="#F5A000"/>
+  <path d="M40 31 L18 56 L40 48 L62 56 Z" fill="#F5A000"/>
+
+  <!-- MoMo wordmark -->
+  <text x="40" y="63" font-family="Arial Black, Arial, Helvetica, sans-serif" font-weight="900" font-size="13" fill="#FFFFFF" text-anchor="middle" dominant-baseline="middle">MoMo</text>
+  <!-- from MTN on gold strip -->
+  <text x="40" y="74" font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="7" fill="#1B3769" text-anchor="middle" dominant-baseline="middle" letter-spacing="0.5">from MTN</text>
+</svg>

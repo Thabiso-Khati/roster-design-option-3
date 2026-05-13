@@ -1,0 +1,45 @@
+# .gitleaks.toml — ROSTER secret scanning configuration
+# Docs: https://github.com/gitleaks/gitleaks#configuration
+
+title = "ROSTER Gitleaks Config"
+
+[extend]
+# Use gitleaks' built-in ruleset as the base
+useDefault = true
+
+# ── Allowlist: paths that are intentionally exempt ─────────────────────────
+[allowlist]
+description = "Global allowlist"
+paths = [
+  # Lock files and build output never contain real secrets
+  "package-lock.json",
+  "yarn.lock",
+  ".next/",
+  "node_modules/",
+  # Test files use clearly-labelled placeholder values
+  "__tests__/",
+  "vitest.config.ts",
+  # The gitleaks config itself
+  ".gitleaks.toml",
+]
+
+# ── Custom rules specific to this project ──────────────────────────────────
+
+[[rules]]
+id          = "paystack-secret-key"
+description = "Paystack secret key"
+regex       = '''sk_(?:live|test)_[0-9a-zA-Z]{40}'''
+tags        = ["paystack", "secret"]
+
+[[rules]]
+id          = "supabase-service-role"
+description = "Supabase service role key (JWT)"
+# Service role JWTs have the role claim — distinguish from anon keys
+regex       = '''eyJ[A-Za-z0-9_-]+\.eyJ[A-Za-z0-9_-]*"role"\s*:\s*"service_role"'''
+tags        = ["supabase", "secret"]
+
+[[rules]]
+id          = "resend-api-key"
+description = "Resend API key"
+regex       = '''re_[0-9a-zA-Z]{32,}'''
+tags        = ["resend", "email"]

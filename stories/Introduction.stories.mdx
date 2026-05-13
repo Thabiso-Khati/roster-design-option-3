@@ -1,0 +1,56 @@
+{/* Introduction.stories.mdx */}
+import { Meta } from "@storybook/blocks";
+
+<Meta title="ROSTER Design System / Introduction" />
+
+# ROSTER Design System
+
+**Midnight Gold** — a design language for Africa's music management infrastructure.
+
+## Foundations
+
+| Token | CSS Variable | Default (Dark) | Light |
+|-------|-------------|----------------|-------|
+| Background | `--background` | `#080B14` | `#F4F6FB` |
+| Surface | `--surface` | `#111827` | `#FFFFFF` |
+| Surface 2 | `--surface-2` | `#1F2937` | `#EDF0F7` |
+| Brand | `--brand` | `#C9A84C` | `#9A7820` |
+| Brand Light | `--brand-light` | `#F59E0B` | `#C9A84C` |
+| Text Primary | `--text-primary` | `#F1F5F9` | `#0F172A` |
+| Text Muted | `--text-muted` | `#64748B` | `#64748B` |
+| Success | `--success` | `#10B981` | `#059669` |
+| Error | `--error` | `#EF4444` | `#DC2626` |
+
+All tokens are defined in `lib/design-tokens.ts` — **edit there first**, then mirror in `tailwind.config.js` and `app/globals.css`.
+
+## Typography
+
+Font: **Inter** for all text. No secondary typeface.
+
+## Theming
+
+ROSTER supports **dark** (default), **light**, and **system** modes via `data-theme` on `<html>`.
+The `ThemeProvider` in `context/theme-context.tsx` manages the toggle cycle.
+
+## Components
+
+| Component | Path | Status |
+|-----------|------|--------|
+| Button | `components/ui/button.tsx` | ✅ Stable |
+| Skeleton | `components/ui/skeleton.tsx` | ✅ Stable |
+| Toast | `components/ui/toast.tsx` | ✅ Stable |
+| ThemeToggle | `components/ui/theme-toggle.tsx` | ✅ Stable |
+| Modal | `components/ui/modal.tsx` | 🚧 Planned |
+| Dropdown | `components/ui/dropdown.tsx` | 🚧 Planned |
+| Select | `components/ui/select.tsx` | 🚧 Planned |
+| Tooltip | `components/ui/tooltip.tsx` | 🚧 Planned |
+| Badge | `components/ui/badge.tsx` | 🚧 Planned |
+| Input | `components/ui/input.tsx` | 🚧 Planned |
+| Tabs | `components/ui/tabs.tsx` | 🚧 Planned |
+
+## Running Storybook
+
+```bash
+npm run storybook      # dev server on :6006
+npm run build-storybook # static build
+```

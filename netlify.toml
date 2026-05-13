@@ -1,0 +1,46 @@
+[build]
+  command   = "npm run build"
+  publish   = ".next"
+
+[build.environment]
+  # Tell next.config.js to use .next (not /tmp/...) as the output directory
+  CI = "true"
+  NODE_OPTIONS = "--max-old-space-size=4096"
+  # Disable Next.js telemetry in CI
+  NEXT_TELEMETRY_DISABLED = "1"
+
+# Next.js runtime for Netlify (handles SSR, API routes, image optimisation)
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
+# Redirect bare /login and /signup → canonical paths (mirrors vercel.json)
+[[redirects]]
+  from   = "/login"
+  to     = "/auth/login"
+  status = 301
+
+[[redirects]]
+  from   = "/signup"
+  to     = "/auth/signup"
+  status = 301
+
+[[redirects]]
+  from   = "/register"
+  to     = "/auth/signup"
+  status = 301
+
+# Security headers (mirrors vercel.json)
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options             = "DENY"
+    X-Content-Type-Options      = "nosniff"
+    Referrer-Policy             = "origin-when-cross-origin"
+    Strict-Transport-Security   = "max-age=63072000; includeSubDomains; preload"
+    Permissions-Policy          = "camera=(), microphone=(), geolocation=()"
+
+[[headers]]
+  for = "/api/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options        = "DENY"

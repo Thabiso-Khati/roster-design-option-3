@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 100">
+  <!-- Blue card border/frame -->
+  <rect width="180" height="100" rx="7" fill="#1565C0"/>
+
+  <!-- White card body -->
+  <rect x="4" y="4" width="172" height="92" rx="4" fill="white"/>
+
+  <!-- Blue top stripe -->
+  <rect x="4" y="4" width="172" height="27" rx="4" fill="#1565C0"/>
+  <!-- Square off the bottom corners of the top stripe -->
+  <rect x="4" y="20" width="172" height="11" fill="#1565C0"/>
+
+  <!-- Gold bottom stripe -->
+  <rect x="4" y="71" width="172" height="25" rx="4" fill="#F9A800"/>
+  <!-- Square off the top corners of the gold stripe -->
+  <rect x="4" y="71" width="172" height="9" fill="#F9A800"/>
+
+  <!-- VISA wordmark — centred in the white band (y 31–71) -->
+  <!-- Times New Roman is available on every desktop/server and gives the
+       correct thick-serif look closest to the real VISA typeface          -->
+  <text
+    x="89"
+    y="67"
+    font-family="'Times New Roman', Times, Georgia, serif"
+    font-weight="900"
+    font-size="46"
+    fill="#1565C0"
+    text-anchor="middle"
+  >VISA</text>
+
+  <!-- ® superscript to the right of the wordmark -->
+  <text
+    x="156"
+    y="38"
+    font-family="Arial, Helvetica, sans-serif"
+    font-size="11"
+    fill="#1565C0"
+    text-anchor="middle"
+  >®</text>
+</svg>

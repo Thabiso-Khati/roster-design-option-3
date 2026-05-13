@@ -1,0 +1,27 @@
+#!/usr/bin/env sh
+# ── ROSTER pre-commit hook ─────────────────────────────────────────────────
+# Runs before every commit. Blocks the commit if secrets are detected.
+#
+# Requires gitleaks to be installed locally:
+#   brew install gitleaks          (macOS)
+#   choco install gitleaks         (Windows)
+#   https://github.com/gitleaks/gitleaks#installation
+
+echo "Scanning staged files for secrets..."
+
+if command -v gitleaks > /dev/null 2>&1; then
+  # Scan only staged files for speed — the CI job scans full history
+  gitleaks protect --staged --config .gitleaks.toml --verbose
+  if [ $? -ne 0 ]; then
+    echo ""
+    echo "SECRET DETECTED in staged files. Commit blocked."
+    echo "Review the output above, remove the secret, and commit again."
+    echo "If this is a false positive, add an allow rule to .gitleaks.toml"
+    exit 1
+  fi
+  echo "No secrets detected."
+else
+  echo "WARNING: gitleaks not installed — secret scan skipped locally."
+  echo "Install it: brew install gitleaks"
+  echo "Secrets are still scanned in CI before merge."
+fi

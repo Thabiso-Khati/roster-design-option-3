@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 218 80">
+  <!-- White background -->
+  <rect width="218" height="80" fill="#ffffff" rx="6"/>
+
+  <!-- "m" — textLength pins the glyph to exactly 44px so phone sits flush -->
+  <text
+    x="7" y="62"
+    font-family="'Arial Rounded MT Bold', 'Nunito Black', Arial, sans-serif"
+    font-weight="900"
+    font-size="56"
+    fill="#4DB848"
+    textLength="44"
+    lengthAdjust="spacingAndGlyphs"
+  >m</text>
+
+  <!-- Phone outline — immediately after "m" at x=53 -->
+  <rect x="53" y="7" width="34" height="65" rx="7" fill="none" stroke="#8B9268" stroke-width="3"/>
+  <!-- Screen area -->
+  <rect x="57" y="16" width="26" height="46" rx="2" fill="#f8f8f8"/>
+
+  <!-- Red swoosh / wing mark inside screen -->
+  <path
+    d="M 58 51
+       C 62 43  67 33  74 25
+       L 80 31
+       C 73 38  69 48  67 54
+       C 65 59  62 63  60 63
+       C 58 63  57 60  58 51 Z"
+    fill="#D0021B"
+  />
+
+  <!-- "pesa" — textLength pins glyphs to fill the remaining space evenly -->
+  <text
+    x="90" y="62"
+    font-family="'Arial Rounded MT Bold', 'Nunito Black', Arial, sans-serif"
+    font-weight="900"
+    font-size="56"
+    fill="#4DB848"
+    textLength="120"
+    lengthAdjust="spacingAndGlyphs"
+  >pesa</text>
+</svg>
