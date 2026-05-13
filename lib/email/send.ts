@@ -1,8 +1,6 @@
 import { Resend } from "resend";
 import { logger } from "@/lib/logger";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 const FROM_EMAIL = process.env.EMAIL_FROM || "ROSTER <noreply@rosterapp.ai>";
 
 export interface SendEmailParams {
@@ -18,9 +16,13 @@ export async function sendEmail({
   html,
   replyTo,
 }: SendEmailParams): Promise<{ success: boolean; id?: string; error?: string }> {
+  // Instantiate inside the function so RESEND_API_KEY is read at runtime,
+  // not at module load time — prevents build failures when the var is absent.
+  const resend = new Resend(process.env.RESEND_API_KEY);
+  const fromEmail = process.env.EMAIL_FROM || "ROSTER <noreply@rosterapp.ai>";
   try {
     const { data, error } = await resend.emails.send({
-      from: FROM_EMAIL,
+      from: fromEmail,
       to: Array.isArray(to) ? to : [to],
       subject,
       html,
