@@ -154,7 +154,7 @@ export function Sidebar() {
               textDecoration: "none",
             }}
           >
-            <ConstellationIcon size={15} style={{ color: "var(--accent)" }} />
+            <span style={{ color: "var(--accent)" }}><ConstellationIcon size={15} /></span>
             <span>{t("nav.assistant")}</span>
             <span
               className="ml-auto font-mono text-[9px] uppercase tracking-[0.14em] px-1.5 py-0.5 rounded-full"
