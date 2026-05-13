@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import { NextRequest, NextResponse } from "next/server";
 import { verifyTransaction, verifyWebhookSignature } from "@/lib/paystack";
 import { createAdminClient } from "@/lib/supabase/admin";

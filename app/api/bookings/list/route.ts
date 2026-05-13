@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 // ============================================================
 // ROSTER — /api/bookings/list
 // GET — return the authenticated user's bookings (paginated)

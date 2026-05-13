@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 // ============================================================
 // ROSTER — /api/campaign-builder/context
 // GET — pull artist context to pre-seed the Campaign Builder.

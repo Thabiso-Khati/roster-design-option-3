@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 // ============================================================
 // ROSTER — /api/fan-contacts/import
 // POST — bulk insert fan contacts from CSV rows

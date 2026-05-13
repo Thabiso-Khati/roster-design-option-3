@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 // ============================================================
 // ROSTER — /api/fan-contacts/welcome
 // POST — send a welcome WhatsApp message to a fan

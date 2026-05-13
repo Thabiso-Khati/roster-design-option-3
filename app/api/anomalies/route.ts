@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 /**
  * GET    /api/anomalies         — list open anomalies for the user
  * PATCH  /api/anomalies         — body { id, status: "acknowledged"|"dismissed"|"snoozed", snoozedUntil? }

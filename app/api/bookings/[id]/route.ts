@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 // ============================================================
 // ROSTER — /api/bookings/[id]
 // DELETE — remove a booking (user's own records only)

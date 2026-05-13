@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 // ============================================================
 // ROSTER — GET /api/spotify/status
 // Tells the Settings UI whether the user has linked Spotify.

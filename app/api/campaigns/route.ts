@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 // GET  /api/campaigns  — list campaigns (most recent first)
 // POST /api/campaigns  — create a campaign (status: draft)
 

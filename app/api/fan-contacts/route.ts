@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 // ============================================================
 // ROSTER — /api/fan-contacts
 // GET  — list contacts (paginated, filterable)

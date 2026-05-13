@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 /**
  * GET    /api/releases/[id]/tasks        — list tasks for a release
  * POST   /api/releases/[id]/tasks        — create task(s); body { tasks: TaskInput[] }

@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 // ============================================================
 // ROSTER AI — Streaming chat endpoint
 // POST /api/agents/chat

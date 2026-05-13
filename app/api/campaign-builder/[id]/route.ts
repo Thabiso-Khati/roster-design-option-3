@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 // ============================================================
 // ROSTER — /api/campaign-builder/[id]
 // GET    — fetch a single campaign with its full plan JSON

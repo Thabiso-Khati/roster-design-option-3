@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 // ============================================================
 // ROSTER — /api/fan-contacts/templates
 // GET  — list broadcast templates (paginated)

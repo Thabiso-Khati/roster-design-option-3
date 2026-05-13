@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 // ============================================================
 // ROSTER — /api/optin/[slug]
 // GET  — fetch public campaign info (for the opt-in landing page)

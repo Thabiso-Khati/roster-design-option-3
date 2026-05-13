@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 // ============================================================
 // ROSTER — POST /api/tiktok/disconnect
 // Body: { artistId: string }

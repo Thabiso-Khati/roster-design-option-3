@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 // ============================================================
 // ROSTER — /api/optin/campaigns
 // GET  — list owner's opt-in campaigns

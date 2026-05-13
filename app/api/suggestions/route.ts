@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 /**
  * GET    /api/suggestions      — list open suggestions for the user (top 5 prioritised)
  * PATCH  /api/suggestions      — body { id, status: "acted"|"snoozed"|"dismissed", snoozedUntil? }

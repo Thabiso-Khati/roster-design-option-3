@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 // ============================================================
 // ROSTER — /api/workspace/documents
 // GET  — list the authenticated user's workspace documents

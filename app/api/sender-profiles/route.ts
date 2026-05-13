@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 // GET  /api/sender-profiles  — list all profiles for the authed user
 // POST /api/sender-profiles  — create a new sender profile
 

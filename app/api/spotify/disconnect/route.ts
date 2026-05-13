@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 // ============================================================
 // ROSTER — POST /api/spotify/disconnect
 // Delete the current user's Spotify token row.

@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 // ============================================================
 // ROSTER — /api/optin/campaigns/[id]
 // PATCH — update (toggle active, edit fields)

@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 // ============================================================
 // ROSTER — /api/brand-book
 // GET  — list the user's saved brand books (most recent first)

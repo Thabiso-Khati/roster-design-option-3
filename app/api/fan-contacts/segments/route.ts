@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 // ============================================================
 // ROSTER — /api/fan-contacts/segments
 // GET  — list segments with member counts (paginated)

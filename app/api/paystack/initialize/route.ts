@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import { NextRequest, NextResponse } from "next/server";
 import { initSubscriptionPayment } from "@/lib/paystack";
 import { createClient } from "@/lib/supabase/server";

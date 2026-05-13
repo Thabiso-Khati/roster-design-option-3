@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 // ============================================================
 // ROSTER — /api/campaign-builder
 // GET  — list the user's Campaign Builder campaigns

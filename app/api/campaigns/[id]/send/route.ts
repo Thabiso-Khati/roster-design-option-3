@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 // POST /api/campaigns/[id]/send
 // ------------------------------------------------------------
 // Triggers the actual dispatch for a draft campaign.

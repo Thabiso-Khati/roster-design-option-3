@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 // ============================================================
 // ROSTER — DEV ONLY: /api/dev/create-test-booking
 // ------------------------------------------------------------

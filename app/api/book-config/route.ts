@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 // Public endpoint — returns just the display fields needed to
 // render the booking page UI without exposing the full config.
 import { NextRequest, NextResponse } from "next/server";
