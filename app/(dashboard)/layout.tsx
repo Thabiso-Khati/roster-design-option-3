@@ -54,7 +54,7 @@ export default async function DashboardLayout({
   return (
     <LocaleProvider>
       <WorkspaceProvider>
-        <div className="min-h-screen bg-background">
+        <div className="min-h-screen" style={{ background: "var(--bg)" }}>
           {/* Skip-to-content — first focusable element, visible on focus */}
           <a
             href="#main-content"
@@ -66,7 +66,7 @@ export default async function DashboardLayout({
           <MobileNav />
           <WhatsAppButton context="my ROSTER account" />
           <CommandPalette />
-          <div className="lg:pl-64 lg:pb-0" style={{ paddingBottom: "calc(5rem + env(safe-area-inset-bottom))" }}>
+          <div className="lg:pl-[244px] lg:pb-0" style={{ paddingBottom: "calc(5rem + env(safe-area-inset-bottom))" }}>
             {/* Shown only to team members — "Viewing X's workspace · Role" */}
             <WorkspaceBanner />
             <main id="main-content" className="p-4 sm:p-6 lg:p-8 max-w-6xl mx-auto">

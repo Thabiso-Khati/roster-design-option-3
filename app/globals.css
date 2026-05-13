@@ -2,377 +2,195 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ── Dark theme (default) ────────────────────────────────────────────────── */
+/**
+ * ROSTER — Stage direction · Obsidian palette (default)
+ * Option 2: warm copper on near-black.
+ * Switch to Bordeaux by stamping data-palette="bordeaux" on <html>.
+ */
+
+/* ── Stage palettes ──────────────────────────────────────────────────────── */
 :root,
-[data-theme="dark"] {
-  --background: #080B14;
-  --surface: #111827;
-  --surface-2: #1F2937;
-  --border: #1F2937;
-  --brand: #C9A84C;
-  --brand-rgb: 201 168 76;
-  --brand-light: #F59E0B;
-  --brand-muted: #92712C;
-  --text-primary: #F1F5F9;
-  --text-muted: #64748B;
-  --text-subtle: #374151;
-  --success: #10B981;
-  --success-rgb: 16 185 129;
-  --error: #EF4444;
-  --error-rgb: 239 68 68;
+[data-palette="obsidian"] {
+  --bg:         #07080A;
+  --surface:    #0F1115;
+  --surface-2:  #181C24;
+  --line:       #21262F;
+  --line-hi:    #2D3441;
+  --ink:        #F0EFEA;
+  --mute:       #7E8390;
+
+  --accent:     #D4824A;
+  --accent-2:   #8B5630;
+  --accent-3:   #F4C998;
+  --accent-on:  #07080A;
+
+  /* Legacy aliases so existing components keep working */
+  --background: #07080A;
+  --surface-legacy: #0F1115;
+  --border:     #21262F;
+  --brand:      #D4824A;
+  --text-primary: #F0EFEA;
+  --text-muted:   #7E8390;
 }
 
-/* ── Light theme ─────────────────────────────────────────────────────────── */
-[data-theme="light"] {
-  --background: #F4F6FB;
-  --surface: #FFFFFF;
-  --surface-2: #EDF0F7;
-  --border: #E2E8F0;
-  /* Slightly deeper gold so it reads against the pale background */
-  --brand: #9A7820;
-  --brand-rgb: 154 120 32;
-  --brand-light: #C9A84C;
-  --brand-muted: #7A5F18;
-  --text-primary: #0F172A;
-  --text-muted: #64748B;
-  --text-subtle: #94A3B8;
-  --success: #059669;
-  --success-rgb: 5 150 105;
-  --error: #DC2626;
-  --error-rgb: 220 38 38;
+[data-palette="bordeaux"] {
+  --bg:         #08070A;
+  --surface:    #0F0F14;
+  --surface-2:  #1A1820;
+  --line:       #25222B;
+  --line-hi:    #322E3B;
+  --ink:        #EFEDED;
+  --mute:       #8A8189;
+
+  --accent:     #B83A52;
+  --accent-2:   #7A2235;
+  --accent-3:   #E3A4B0;
+  --accent-on:  #FFF8F8;
+
+  --background: #08070A;
+  --border:     #25222B;
+  --brand:      #B83A52;
+  --text-primary: #EFEDED;
+  --text-muted:   #8A8189;
 }
 
-/* ── Light theme: override all Tailwind colour utility classes ───────────────
-   Because tailwind.config.js uses hardcoded dark-hex values (required for
-   opacity-modifier support), we must re-declare every class under the light
-   data-theme selector so the browser wins the cascade.
-   ─────────────────────────────────────────────────────────────────────────── */
 
-/* Background colours */
-[data-theme="light"] .bg-background  { background-color: #F4F6FB !important; }
-[data-theme="light"] .bg-surface     { background-color: #FFFFFF !important; }
-[data-theme="light"] .bg-surface-2   { background-color: #EDF0F7 !important; }
-[data-theme="light"] .bg-brand       { background-color: #9A7820 !important; }
-[data-theme="light"] .bg-brand-light { background-color: #C9A84C !important; }
-[data-theme="light"] .bg-success     { background-color: #059669 !important; }
-[data-theme="light"] .bg-error       { background-color: #DC2626 !important; }
-
-/* Background opacity variants */
-[data-theme="light"] .bg-brand\/5   { background-color: rgb(154 120 32 / 0.05)  !important; }
-[data-theme="light"] .bg-brand\/10  { background-color: rgb(154 120 32 / 0.10)  !important; }
-[data-theme="light"] .bg-brand\/15  { background-color: rgb(154 120 32 / 0.15)  !important; }
-[data-theme="light"] .bg-brand\/20  { background-color: rgb(154 120 32 / 0.20)  !important; }
-[data-theme="light"] .bg-brand\/30  { background-color: rgb(154 120 32 / 0.30)  !important; }
-[data-theme="light"] .bg-surface\/30  { background-color: rgb(255 255 255 / 0.30)  !important; }
-[data-theme="light"] .bg-surface\/40  { background-color: rgb(255 255 255 / 0.40)  !important; }
-[data-theme="light"] .bg-surface\/60  { background-color: rgb(255 255 255 / 0.60)  !important; }
-[data-theme="light"] .bg-surface-2\/20 { background-color: rgb(237 240 247 / 0.20) !important; }
-[data-theme="light"] .bg-surface-2\/30 { background-color: rgb(237 240 247 / 0.30) !important; }
-[data-theme="light"] .bg-surface-2\/40 { background-color: rgb(237 240 247 / 0.40) !important; }
-[data-theme="light"] .bg-surface-2\/50 { background-color: rgb(237 240 247 / 0.50) !important; }
-[data-theme="light"] .bg-background\/80 { background-color: rgb(244 246 251 / 0.80) !important; }
-[data-theme="light"] .bg-error\/5   { background-color: rgb(220 38 38 / 0.05)  !important; }
-[data-theme="light"] .bg-error\/10  { background-color: rgb(220 38 38 / 0.10)  !important; }
-[data-theme="light"] .bg-error\/20  { background-color: rgb(220 38 38 / 0.20)  !important; }
-[data-theme="light"] .bg-success\/5  { background-color: rgb(5 150 105 / 0.05)  !important; }
-[data-theme="light"] .bg-success\/10 { background-color: rgb(5 150 105 / 0.10)  !important; }
-[data-theme="light"] .bg-success\/15 { background-color: rgb(5 150 105 / 0.15)  !important; }
-[data-theme="light"] .bg-text-muted  { background-color: #64748B !important; }
-
-/* Text colours */
-[data-theme="light"] .text-text-primary { color: #0F172A !important; }
-[data-theme="light"] .text-text-muted   { color: #64748B !important; }
-[data-theme="light"] .text-text-subtle  { color: #94A3B8 !important; }
-[data-theme="light"] .text-brand        { color: #9A7820 !important; }
-[data-theme="light"] .text-brand-light  { color: #C9A84C !important; }
-[data-theme="light"] .text-success      { color: #059669 !important; }
-[data-theme="light"] .text-error        { color: #DC2626 !important; }
-[data-theme="light"] .text-background   { color: #F4F6FB !important; }
-
-/* Text opacity variants */
-[data-theme="light"] .text-text-muted\/30 { color: rgb(100 116 139 / 0.30) !important; }
-[data-theme="light"] .text-text-muted\/40 { color: rgb(100 116 139 / 0.40) !important; }
-[data-theme="light"] .text-text-muted\/50 { color: rgb(100 116 139 / 0.50) !important; }
-[data-theme="light"] .text-text-muted\/60 { color: rgb(100 116 139 / 0.60) !important; }
-[data-theme="light"] .text-text-muted\/70 { color: rgb(100 116 139 / 0.70) !important; }
-[data-theme="light"] .text-text-muted\/80 { color: rgb(100 116 139 / 0.80) !important; }
-[data-theme="light"] .text-brand\/60      { color: rgb(154 120 32 / 0.60) !important; }
-[data-theme="light"] .text-brand\/70      { color: rgb(154 120 32 / 0.70) !important; }
-
-/* Border colours */
-[data-theme="light"] .border-border       { border-color: #E2E8F0 !important; }
-[data-theme="light"] .border-brand        { border-color: #9A7820 !important; }
-[data-theme="light"] .border-text-muted   { border-color: #64748B !important; }
-[data-theme="light"] .border-success      { border-color: #059669 !important; }
-[data-theme="light"] .border-error        { border-color: #DC2626 !important; }
-
-/* Border opacity variants */
-[data-theme="light"] .border-border\/30   { border-color: rgb(226 232 240 / 0.30) !important; }
-[data-theme="light"] .border-border\/50   { border-color: rgb(226 232 240 / 0.50) !important; }
-[data-theme="light"] .border-border\/60   { border-color: rgb(226 232 240 / 0.60) !important; }
-[data-theme="light"] .border-brand\/20    { border-color: rgb(154 120 32 / 0.20)  !important; }
-[data-theme="light"] .border-brand\/30    { border-color: rgb(154 120 32 / 0.30)  !important; }
-[data-theme="light"] .border-brand\/40    { border-color: rgb(154 120 32 / 0.40)  !important; }
-[data-theme="light"] .border-brand\/50    { border-color: rgb(154 120 32 / 0.50)  !important; }
-[data-theme="light"] .border-error\/20    { border-color: rgb(220 38 38 / 0.20)   !important; }
-[data-theme="light"] .border-success\/20  { border-color: rgb(5 150 105 / 0.20)   !important; }
-[data-theme="light"] .border-success\/30  { border-color: rgb(5 150 105 / 0.30)   !important; }
-
-/* Dividers */
-[data-theme="light"] .divide-border > * + *   { border-color: #E2E8F0 !important; }
-[data-theme="light"] .divide-border\/60 > * + * { border-color: rgb(226 232 240 / 0.60) !important; }
-
-/* Ring colours */
-[data-theme="light"] .ring-brand   { --tw-ring-color: #9A7820 !important; }
-[data-theme="light"] .ring-border  { --tw-ring-color: #E2E8F0 !important; }
-
-/* Fill / stroke */
-[data-theme="light"] .fill-brand   { fill: #9A7820 !important; }
-[data-theme="light"] .stroke-brand { stroke: #9A7820 !important; }
-
-/* Gradient from/to */
-[data-theme="light"] .from-brand   { --tw-gradient-from: #9A7820 !important; }
-[data-theme="light"] .to-brand     { --tw-gradient-to: #9A7820 !important; }
-[data-theme="light"] .from-background { --tw-gradient-from: #F4F6FB !important; }
-[data-theme="light"] .to-background   { --tw-gradient-to: #F4F6FB !important; }
-
-/* Inputs & forms — lift them above the dark defaults */
-[data-theme="light"] input,
-[data-theme="light"] textarea,
-[data-theme="light"] select {
-  background-color: #FFFFFF;
-  color: #0F172A;
-  border-color: #E2E8F0;
-}
-[data-theme="light"] input::placeholder,
-[data-theme="light"] textarea::placeholder {
-  color: #94A3B8;
-}
-
-/* ────────────────────────────────────────────────────────────────────────── */
-
-* { box-sizing: border-box; margin: 0; padding: 0; }
-/* scroll-behavior is set via data-scroll-behavior="smooth" on <html> (Next.js App Router convention) */
-
-body {
-  background-color: var(--background);
-  color: var(--text-primary);
-  font-family: 'Inter', system-ui, sans-serif;
+/* ── Base ────────────────────────────────────────────────────────────────── */
+html, body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Sora', system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Custom scrollbar */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: var(--surface); }
-::-webkit-scrollbar-thumb { background: var(--surface-2); border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: var(--brand); }
-
-::selection { background-color: rgba(201,168,76,0.3); color: var(--text-primary); }
-
-.text-gold {
-  background: linear-gradient(135deg, #C9A84C, #F59E0B);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+::selection {
+  background: var(--accent);
+  color: var(--accent-on);
 }
 
-.gold-glow { box-shadow: 0 0 30px rgba(201,168,76,0.15); }
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--surface-2); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--line-hi); }
 
-.glass-card {
-  background: rgba(17,24,39,0.6);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(201,168,76,0.1);
-}
-[data-theme="light"] .glass-card {
-  background: rgba(255,255,255,0.85);
-  border-color: rgba(154,120,32,0.18);
-}
-
-.hero-bg {
-  background:
-    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(201,168,76,0.12) 0%, transparent 70%),
-    #080B14;
-}
-[data-theme="light"] .hero-bg {
-  background:
-    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(154,120,32,0.08) 0%, transparent 70%),
-    #F4F6FB;
-}
-
-.module-card { transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease; }
-.module-card:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
-
-input:focus, textarea:focus, select:focus {
+/* ── Focus ring ──────────────────────────────────────────────────────────── */
+:focus-visible {
   outline: none;
-  box-shadow: 0 0 0 2px rgba(201,168,76,0.4);
+  box-shadow: 0 0 0 1.5px color-mix(in oklab, var(--accent) 60%, transparent);
 }
 
+/* ── Mono utility ────────────────────────────────────────────────────────── */
+.font-mono {
+  font-family: 'JetBrains Mono', monospace !important;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0;
+}
+
+/* ── Glass card ──────────────────────────────────────────────────────────── */
+.glass-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  backdrop-filter: blur(8px);
+}
+
+/* ── Accent glow gradient backgrounds ───────────────────────────────────── */
+.accent-gradient {
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+}
+
+.accent-glow {
+  box-shadow: 0 0 20px color-mix(in oklab, var(--accent) 40%, transparent);
+}
+
+
+/* ── color-mix opacity utilities ─────────────────────────────────────────
+   Tailwind's /N modifier can't parse CSS-var hex reliably, so hand-roll
+   the variants we use. Keeps tints consistent across palette swaps.     */
+.bg-accent\/5   { background-color: color-mix(in oklab, var(--accent)  5%,  transparent); }
+.bg-accent\/10  { background-color: color-mix(in oklab, var(--accent) 10%, transparent); }
+.bg-accent\/15  { background-color: color-mix(in oklab, var(--accent) 15%, transparent); }
+.bg-accent\/20  { background-color: color-mix(in oklab, var(--accent) 20%, transparent); }
+.bg-accent\/30  { background-color: color-mix(in oklab, var(--accent) 30%, transparent); }
+.border-accent\/20 { border-color: color-mix(in oklab, var(--accent) 20%, transparent); }
+.border-accent\/30 { border-color: color-mix(in oklab, var(--accent) 30%, transparent); }
+.border-accent\/40 { border-color: color-mix(in oklab, var(--accent) 40%, transparent); }
+
+/* brand aliases (backward compat with existing components) */
+.bg-brand\/5    { background-color: color-mix(in oklab, var(--accent)  5%,  transparent); }
+.bg-brand\/10   { background-color: color-mix(in oklab, var(--accent) 10%, transparent); }
+.bg-brand\/15   { background-color: color-mix(in oklab, var(--accent) 15%, transparent); }
+.bg-brand\/20   { background-color: color-mix(in oklab, var(--accent) 20%, transparent); }
+.border-brand\/20 { border-color: color-mix(in oklab, var(--accent) 20%, transparent); }
+.border-brand\/30 { border-color: color-mix(in oklab, var(--accent) 30%, transparent); }
+.border-brand\/60 { border-color: color-mix(in oklab, var(--accent) 60%, transparent); }
+.text-brand\/60   { color: color-mix(in oklab, var(--accent) 60%, transparent); }
+
+.text-mute\/50  { color: color-mix(in oklab, var(--mute) 50%, transparent); }
+.text-mute\/60  { color: color-mix(in oklab, var(--mute) 60%, transparent); }
+.text-mute\/70  { color: color-mix(in oklab, var(--mute) 70%, transparent); }
+.text-mute\/80  { color: color-mix(in oklab, var(--mute) 80%, transparent); }
+
+.border-line\/40 { border-color: color-mix(in oklab, var(--line) 40%, transparent); }
+.border-line\/50 { border-color: color-mix(in oklab, var(--line) 50%, transparent); }
+.border-line\/60 { border-color: color-mix(in oklab, var(--line) 60%, transparent); }
+.border-line\/80 { border-color: color-mix(in oklab, var(--line) 80%, transparent); }
+.border-line-hi\/60 { border-color: color-mix(in oklab, var(--line-hi) 60%, transparent); }
+.border-line-hi\/80 { border-color: color-mix(in oklab, var(--line-hi) 80%, transparent); }
+
+.bg-surface-2\/30 { background-color: color-mix(in oklab, var(--surface-2) 30%, transparent); }
+.bg-surface-2\/40 { background-color: color-mix(in oklab, var(--surface-2) 40%, transparent); }
+.bg-surface-2\/50 { background-color: color-mix(in oklab, var(--surface-2) 50%, transparent); }
+.bg-surface-2\/60 { background-color: color-mix(in oklab, var(--surface-2) 60%, transparent); }
+
+
+/* ── Legacy class aliases ─────────────────────────────────────────────────
+   Existing components use the old Midnight Gold class names.
+   These forward them to the new Stage tokens.                             */
+.text-text-primary  { color: var(--ink) !important; }
+.text-text-muted    { color: var(--mute) !important; }
+.text-brand         { color: var(--accent) !important; }
+.bg-background      { background-color: var(--bg) !important; }
+.bg-surface         { background-color: var(--surface) !important; }
+.bg-surface-2       { background-color: var(--surface-2) !important; }
+.bg-brand           { background-color: var(--accent) !important; }
+.border-border      { border-color: var(--line) !important; }
+.border-brand       { border-color: var(--accent) !important; }
+.text-gold          { color: var(--accent); }
+
+/* ── Ambient page glow (global canvas, palette-aware) ────────────────────
+   Defined as a reusable component. Rendered once in dashboard layout.    */
+.ambient-glow-top {
+  background: radial-gradient(circle, color-mix(in oklab, var(--accent) 10%, transparent), transparent 60%);
+}
+.ambient-glow-bottom {
+  background: radial-gradient(circle, color-mix(in oklab, var(--accent-2) 8%, transparent), transparent 60%);
+}
+
+/* ── Animations ──────────────────────────────────────────────────────────── */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+@keyframes orbit {
+  from { transform: rotate(0deg) translateX(24px) rotate(0deg); }
+  to   { transform: rotate(360deg) translateX(24px) rotate(-360deg); }
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.5; }
+}
+
+/* ── Print ───────────────────────────────────────────────────────────────── */
 @media print {
-  /* ── Hide chrome: sidebar, mobile nav, floating buttons, breadcrumb nav, print buttons ── */
-  aside,
-  nav,
-  [class*="whatsapp"],
-  [class*="fixed bottom"],
-  #print-close-btn,
-  .no-print {
-    display: none !important;
-  }
-
-  /* ── Remove sidebar offset ── */
-  .lg\:pl-64 { padding-left: 0 !important; }
-
-  /* ── Page layout ── */
-  html, body {
-    background: #fff !important;
-    background-color: #fff !important;
-    color: #111 !important;
-    font-size: 12pt;
-  }
-
-  /* ── Force all backgrounds white, all text dark ── */
-  *,
-  *::before,
-  *::after {
-    background: transparent !important;
-    background-color: transparent !important;
-    background-image: none !important;
-    color: #111 !important;
-    -webkit-text-fill-color: #111 !important;
-    box-shadow: none !important;
-    text-shadow: none !important;
-  }
-
-  /* ── Cards and containers get a simple border ── */
-  .glass-card {
-    border: 1px solid #ccc !important;
-  }
-
-  /* ── Inputs and textareas show their borders ── */
-  input, textarea, select {
-    border: 1px solid #999 !important;
-    background: #fff !important;
-    color: #111 !important;
-    -webkit-text-fill-color: #111 !important;
-  }
-
-  /* ── Tables ── */
-  table { border-collapse: collapse !important; width: 100% !important; }
-  th, td { border: 1px solid #ccc !important; padding: 6px 8px !important; }
-
-  /* ── Links ── */
-  a { color: #111 !important; text-decoration: none !important; }
-
-  /* ── Keep content on one column ── */
-  .grid { display: block !important; }
-
-  /* ── Avoid breaking inside cards ── */
-  .glass-card, section, .rounded-xl, .rounded-2xl {
-    break-inside: avoid;
-    page-break-inside: avoid;
-  }
-
-  @page {
-    margin: 15mm 12mm;
-    size: A4 portrait;
-  }
-}
-
-/* ── RTL (Arabic) layout overrides ──────────────────────────────────────────
-   Triggered by dir="rtl" on <html>, set server-side in app/layout.tsx and
-   client-side in locale-context.tsx → applyLangToDom().
-
-   Strategy: use CSS logical properties where possible (margin-inline-start,
-   padding-inline-end etc). Targeted overrides below handle cases where
-   Tailwind utility classes have baked-in physical directions.
-   ────────────────────────────────────────────────────────────────────────── */
-
-/* ── Text alignment ── */
-[dir="rtl"] body { text-align: right; }
-
-/* ── Sidebar: flip from left to right ── */
-[dir="rtl"] aside,
-[dir="rtl"] nav.sidebar {
-  right: 0;
-  left: auto;
-  border-right: none;
-  border-left: 1px solid var(--border);
-}
-
-/* ── Flex rows: reverse items for icon + label patterns ── */
-[dir="rtl"] .flex-row-rtl { flex-direction: row-reverse; }
-
-/* ── Back/forward navigation arrows ── */
-[dir="rtl"] .nav-arrow-back  { transform: scaleX(-1); }
-[dir="rtl"] .nav-arrow-forward { transform: scaleX(-1); }
-
-/* ── Chevron icons inside buttons / menus ── */
-[dir="rtl"] .lucide-chevron-right,
-[dir="rtl"] .lucide-arrow-right { transform: scaleX(-1); }
-[dir="rtl"] .lucide-chevron-left,
-[dir="rtl"] .lucide-arrow-left  { transform: scaleX(-1); }
-
-/* ── Progress bars: fill from right ── */
-[dir="rtl"] [role="progressbar"] { direction: rtl; }
-
-/* ── Input icons (search, etc.) ── */
-[dir="rtl"] .input-icon-left  { right: 0.75rem; left: auto; }
-[dir="rtl"] .input-icon-right { left: 0.75rem;  right: auto; }
-
-/* ── Tailwind margin/padding logical overrides ──
-   Cover the most common patterns: pl- (padding-left) and pr- (padding-right)
-   that appear in the sidebar/dashboard layout.
-   Only override structural containers — not content text nodes. ── */
-[dir="rtl"] .ltr\:pl-64 { padding-right: 16rem; padding-left: 0; }
-[dir="rtl"] .ltr\:pl-20 { padding-right: 5rem;  padding-left: 0; }
-[dir="rtl"] .ltr\:pl-4  { padding-right: 1rem;  padding-left: 0; }
-
-/* ── Toast: anchor to bottom-left in RTL ── */
-[dir="rtl"] .toast-container {
-  right: auto;
-  left: 1.5rem;
-}
-
-/* ── Arabic typography: use a system Arabic font stack as fallback ── */
-:lang(ar) {
-  font-family:
-    "Cairo",        /* Google Fonts — add to layout.tsx if needed */
-    "Noto Sans Arabic",
-    "Segoe UI",
-    "Tahoma",
-    system-ui,
-    sans-serif;
-  line-height: 1.8; /* Arabic text needs slightly more leading */
-}
-
-/* ── HeroAnimation orbit keyframes ──────────────────────────────────────────
-   Moved here from hero-animation.tsx useEffect so that no dynamic <style>
-   injection is needed (avoids CSP nonce issues with style-src). ── */
-@keyframes orbitInner {
-  from { transform: rotate(0deg) translateX(150px) rotate(0deg); }
-  to   { transform: rotate(360deg) translateX(150px) rotate(-360deg); }
-}
-@keyframes orbitOuter {
-  from { transform: rotate(0deg) translateX(232px) rotate(0deg); }
-  to   { transform: rotate(-360deg) translateX(232px) rotate(360deg); }
-}
-@keyframes rosterPulse {
-  0%,100% { transform: translate(-50%,-50%) scale(1);   opacity: .18; }
-  50%     { transform: translate(-50%,-50%) scale(1.14); opacity: .42; }
-}
-@keyframes rosterPulse2 {
-  0%,100% { transform: translate(-50%,-50%) scale(1);   opacity: .09; }
-  50%     { transform: translate(-50%,-50%) scale(1.2);  opacity: .26; }
-}
-@keyframes rosterLogoGlow {
-  0%,100% { box-shadow: 0 0 12px rgba(201,168,76,.4), 0 0 24px rgba(201,168,76,.15); }
-  50%     { box-shadow: 0 0 22px rgba(201,168,76,.8), 0 0 44px rgba(201,168,76,.3);  }
-}
-@keyframes windowFloat {
-  0%,100% { transform: translateY(0px); }
-  50%     { transform: translateY(-6px); }
-}
-@keyframes orbitRingPulse {
-  0%,100% { opacity: .12; }
-  50%     { opacity: .25; }
+  aside, nav, header, footer, button { display: none !important; }
+  body { background: white !important; color: black !important; }
 }

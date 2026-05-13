@@ -1,16 +1,16 @@
 /**
  * @type {import('tailwindcss').Config}
  *
- * ── IMPORTANT — colour source of truth ────────────────────────────────────
- * Brand colour values live in lib/design-tokens.ts.
- * Hardcoded hex is required HERE for Tailwind's opacity modifier support
- * (e.g. bg-brand/50). CSS vars cannot carry opacity modifiers.
+ * ROSTER — Stage direction · Option 3: Bordeaux (oxblood / dusty rose)
  *
- * When updating a colour:
- *   1. Change the value in lib/design-tokens.ts  ← START HERE
- *   2. Mirror the change in this file (colours section below)
- *   3. Mirror the change in app/globals.css       (:root / [data-theme="light"])
- * ──────────────────────────────────────────────────────────────────────────
+ * Palette-aware tokens use CSS vars so they switch automatically when
+ * data-palette="bordeaux" is set on <html>. The downside: Tailwind's
+ * /N opacity modifier can't parse CSS vars — use the hand-rolled
+ * color-mix() utilities in globals.css instead (bg-accent/10, etc.).
+ *
+ * For Tailwind opacity modifiers on the accent, accent hex is also
+ * registered as `accent-hex` so old code that uses bg-brand/10 etc.
+ * still works via the legacy-alias block in globals.css.
  */
 const config = {
   content: [
@@ -21,51 +21,66 @@ const config = {
   theme: {
     extend: {
       colors: {
-        // ROSTER brand palette — Midnight Gold (dark theme defaults)
-        // Light-theme overrides in app/globals.css [data-theme="light"]
-        // Source: lib/design-tokens.ts → tailwindColors
-        background: "#080B14",
-        surface:    "#111827",
-        "surface-2":"#1F2937",
-        border:     "#1F2937",
+        /* ── Stage palette tokens (CSS-var driven, palette-aware) ── */
+        bg:          "var(--bg)",
+        surface:     "var(--surface)",
+        "surface-2": "var(--surface-2)",
+        line:        "var(--line)",
+        "line-hi":   "var(--line-hi)",
+        ink:         "var(--ink)",
+        mute:        "var(--mute)",
+        accent:      "var(--accent)",
+        "accent-2":  "var(--accent-2)",
+        "accent-3":  "var(--accent-3)",
+        "accent-on": "var(--accent-on)",
+
+        /* ── Legacy aliases so existing components compile ── */
+        background:  "var(--bg)",
+        border:      "var(--line)",
         brand: {
-          DEFAULT: "#C9A84C",
-          light:   "#F59E0B",
-          muted:   "#92712C",
+          DEFAULT: "#B83A52",   /* Bordeaux oxblood hex — for /N modifiers */
+          light:   "#E3A4B0",
+          muted:   "#7A2235",
         },
         text: {
-          primary: "#F1F5F9",
-          muted:   "#64748B",
-          subtle:  "#374151",
+          primary: "#EFEDED",
+          muted:   "#8A8189",
+          subtle:  "#21262F",
         },
         success: "#10B981",
         error:   "#EF4444",
+        warning: "#F59E0B",
+        info:    "#06B6D4",
       },
       fontFamily: {
-        // Source: lib/design-tokens.ts → typography.fontFamily
-        sans:    ["Inter", "system-ui", "sans-serif"],
-        display: ["Inter", "system-ui", "sans-serif"],
-        mono:    ["JetBrains Mono", "Fira Code", "monospace"],
+        sans:    ["Sora", "system-ui", "sans-serif"],
+        display: ["Sora", "system-ui", "sans-serif"],
+        mono:    ['"JetBrains Mono"', '"Fira Code"', "monospace"],
+      },
+      borderRadius: {
+        sm:    "6px",
+        DEFAULT: "8px",
+        md:    "8px",
+        lg:    "10px",
+        xl:    "12px",
+        "2xl": "14px",
+        "3xl": "16px",
       },
       backgroundImage: {
-        // Source: lib/design-tokens.ts → gradients
-        "gold-gradient": "linear-gradient(135deg, #C9A84C 0%, #F59E0B 100%)",
-        "dark-gradient": "linear-gradient(180deg, #080B14 0%, #111827 100%)",
-        "hero-gradient": "radial-gradient(ellipse at 50% 0%, rgba(201,168,76,0.15) 0%, rgba(8,11,20,0) 70%)",
+        "accent-gradient": "linear-gradient(135deg, var(--accent), var(--accent-2))",
+        "dark-gradient":   "linear-gradient(180deg, var(--bg) 0%, var(--surface) 100%)",
+        "hero-gradient":   "radial-gradient(ellipse at 50% 0%, color-mix(in oklab, var(--accent) 12%, transparent) 0%, transparent 70%)",
+        "gold-gradient":   "linear-gradient(135deg, var(--accent), var(--accent-2))",
       },
       animation: {
-        "fade-in":  "fadeIn 0.5s ease-in-out",
-        "slide-up": "slideUp 0.6s ease-out",
+        "fade-in":  "fadeIn 0.4s ease-out",
+        "slide-up": "slideUp 0.5s ease-out",
+        "marquee":  "marquee 60s linear infinite",
       },
       keyframes: {
-        fadeIn: {
-          "0%":   { opacity: "0" },
-          "100%": { opacity: "1" },
-        },
-        slideUp: {
-          "0%":   { opacity: "0", transform: "translateY(20px)" },
-          "100%": { opacity: "1", transform: "translateY(0)" },
-        },
+        fadeIn:  { "0%": { opacity: "0" }, "100%": { opacity: "1" } },
+        slideUp: { "0%": { opacity: "0", transform: "translateY(12px)" }, "100%": { opacity: "1", transform: "translateY(0)" } },
+        marquee: { "0%": { transform: "translateX(0)" }, "100%": { transform: "translateX(-50%)" } },
       },
     },
   },
