@@ -16,40 +16,7 @@ export default async function DashboardLayout({
 }: {
   children: React.ReactNode;
 }) {
-  // Only enforce auth when Supabase is configured
-  if (SUPABASE_CONFIGURED) {
-    const { createClient } = await import("@/lib/supabase/server");
-    const supabase = await createClient();
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
-    if (!user) redirect("/auth/login");
-
-    // ── Subscription paywall ─────────────────────────────────
-    // Free-tier users (no subscription rows at all) always get through.
-    // Users who previously paid but whose subscription is no longer active
-    // are redirected to renew. We check for ANY subscription row first to
-    // distinguish "never paid" (free tier) from "lapsed paid tier".
-    const { count: anySubCount } = await supabase
-      .from("subscriptions")
-      .select("id", { count: "exact", head: true })
-      .eq("user_id", user.id);
-
-    if (anySubCount && anySubCount > 0) {
-      // User has at least one subscription row — check if any are active
-      const { count: activeCount } = await supabase
-        .from("subscriptions")
-        .select("id", { count: "exact", head: true })
-        .eq("user_id", user.id)
-        .eq("status", "active");
-
-      if (!activeCount || activeCount === 0) {
-        // All subscription rows are cancelled / expired → paywall
-        redirect("/auth/signup?expired=1");
-      }
-    }
-    // No rows → free tier → fall through normally
-  }
+  // AUTH BYPASSED — design preview only. Restore for production.
 
   return (
     <LocaleProvider>
