@@ -175,6 +175,11 @@ export async function proxy(request: NextRequest) {
   }
 
   let supabaseResponse = NextResponse.next({ request: { headers: requestHeaders } });
+  // DESIGN PREVIEW: bypass auth — remove before production
+  if (pathname.startsWith('/dashboard') || pathname.startsWith('/onboarding')) {
+    return applySecurityHeaders(supabaseResponse, nonce);
+  }
+
 
   const supabase = createServerClient(supabaseUrl, supabaseKey, {
     cookies: {
