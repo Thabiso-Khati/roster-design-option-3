@@ -235,21 +235,7 @@ export async function proxy(request: NextRequest) {
     return applySecurityHeaders(res, nonce);
   };
 
-  if (
-    !session &&
-    PROTECTED_ROUTES.some((route) => pathname.startsWith(route))
-  ) {
-    const loginUrl = request.nextUrl.clone();
-    loginUrl.pathname = "/auth/login";
-    loginUrl.searchParams.set("redirect", pathname);
-    return redirectWithCookies(loginUrl);
-  }
-
-  if (session && AUTH_ROUTES.includes(pathname)) {
-    const dashboardUrl = request.nextUrl.clone();
-    dashboardUrl.pathname = "/dashboard";
-    return redirectWithCookies(dashboardUrl);
-  }
+  // AUTH BYPASSED — design preview only. Restore for production.
 
   return applySecurityHeaders(supabaseResponse, nonce);
 }
