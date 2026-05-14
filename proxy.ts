@@ -229,7 +229,8 @@ export async function proxy(request: NextRequest) {
   const redirectWithCookies = (destination: URL) => {
     const res = NextResponse.redirect(destination);
     supabaseResponse.cookies.getAll().forEach((cookie) => {
-      res.cookies.set(cookie.name, cookie.value, cookie);
+      const { name, value, ...cookieOptions } = cookie;
+      res.cookies.set(name, value, cookieOptions);
     });
     // Redirects render no HTML body, but the CSP header is still good practice.
     return applySecurityHeaders(res, nonce);
