@@ -196,33 +196,33 @@ export async function proxy(request: NextRequest) {
   });
 
   const {
-    data: { user },
-    error: getUserError,
-  } = await supabase.auth.getUser();
+    data: { session },
+    error: getSessionError,
+  } = await supabase.auth.getSession();
 
   // Surface auth errors so we can diagnose the redirect loop.
   // In dev: logged to the server console so they appear in `npm run dev` output.
   // In production: logged to Vercel function logs.
-  if (getUserError) {
+  if (getSessionError) {
     console.error(
-      "[proxy] getUser() error on",
+      "[proxy] getSession() error on",
       pathname,
-      "| name:", getUserError.name,
-      "| message:", getUserError.message,
-      "| status:", getUserError.status,
+      "| name:", getSessionError.name,
+      "| message:", getSessionError.message,
+      "| status:", getSessionError.status,
       "| cookies sent:", request.cookies.getAll().map(c => c.name).join(", ") || "(none)"
     );
   }
 
   // Debug helper: if the request carries an x-auth-debug header (set by the
   // session-debug endpoint), log the full cookie list at debug level too.
-  if (!user && PROTECTED_ROUTES.some(r => pathname.startsWith(r))) {
+  if (!session && PROTECTED_ROUTES.some(r => pathname.startsWith(r))) {
     const cookieNames = request.cookies.getAll().map(c => c.name).join(", ");
     console.warn(
       "[proxy] unauthenticated request to protected route",
       pathname,
       "| cookies:", cookieNames || "(none)",
-      "| getUser error:", getUserError?.message ?? "null"
+      "| getUser error:", getSessionError?.message ?? "null"
     );
   }
 
@@ -236,7 +236,7 @@ export async function proxy(request: NextRequest) {
   };
 
   if (
-    !user &&
+    !session &&
     PROTECTED_ROUTES.some((route) => pathname.startsWith(route))
   ) {
     const loginUrl = request.nextUrl.clone();
@@ -245,7 +245,7 @@ export async function proxy(request: NextRequest) {
     return redirectWithCookies(loginUrl);
   }
 
-  if (user && AUTH_ROUTES.includes(pathname)) {
+  if (session && AUTH_ROUTES.includes(pathname)) {
     const dashboardUrl = request.nextUrl.clone();
     dashboardUrl.pathname = "/dashboard";
     return redirectWithCookies(dashboardUrl);
